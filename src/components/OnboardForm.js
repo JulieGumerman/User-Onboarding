@@ -13,38 +13,80 @@ function OnboardForm ({ errors, touched, values, status, isSubmitting}) {
     }, [status]);
 
     return (
-        <div>
+        <div className="form-container">
         <h3>I am the form you have been looking for.</h3>
         <Form>
-            <Field type="text" name="name" placeholder="name"/>
-            {touched.name && errors.name && (<p>{errors.name}</p>)}
-            <Field type="email" name="email" placeholder="email"/>
-            {touched.email && errors.email && (<p>{errors.email}</p>)}
-            <Field type="password" name="password" placeholder="password"/>
-            {touched.password && errors.password &&(<p>{errors.password}</p>)}
-            <Field component="select" name="activity">
-                <option>Choose one</option>
-                <option>Snowboarding</option>
-                <option>Mountain Biking</option>
-                <option>Kayaking</option>
-                <option>Climbing</option>
+            <Field 
+                className="form-field" 
+                type="text" name="name" 
+                placeholder="name"
+            />
+            {touched.name && errors.name && (
+                <p className="error">{errors.name}</p>
+            )}
+            <Field 
+                className="form-field" 
+                type="email" name="email" 
+                placeholder="email"
+            />
+            {touched.email && errors.email && (
+                <p className="error">{errors.email}</p>
+            )}
+            <Field 
+                className="form-field" 
+                type="password" 
+                name="password" 
+                placeholder="password"
+            />
+            {touched.password && errors.password &&(
+                <p className="error">{errors.password}</p>
+            )}
+            <Field 
+                className="form-field" 
+                component="select" 
+                name="activity">
+                    <option>Choose an activity</option>
+                    <option>Snowboarding</option>
+                    <option>Mountain Biking</option>
+                    <option>Kayaking</option>
+                    <option>Climbing</option>
             </Field>
-            <label> I agree to the terms of service.
-                <Field type="checkbox" name="terms" checked={values.terms} />
-                {touched.terms && errors.terms && (<p>{errors.terms}</p>)}
+            {touched.activity && errors.activity && (
+                <p className="error">{errors.activity}</p>
+            )}
+            <Field 
+                className="text-area" 
+                component="textarea" 
+                name="favorite" 
+                placeholder="My favorite thing about being outside is..."
+            />
+            {touched.favorite && errors.favorite && (
+                <p className="error">{errors.favorite}</p>
+            )}
+            <label className="terms"> I agree to the terms of service.
+                <Field 
+                    type="checkbox" 
+                    name="terms" 
+                    checked={values.terms} 
+                />
+                {touched.terms && errors.terms && (
+                    <p>{errors.terms}</p>
+                )}
             </label>
             <button type="submit" disabled={isSubmitting}>Submit here.</button>
 
 
         </Form>
-        {users.map(user => (
-            <div>
-                <h3>{user.name}</h3>
-                <h4>{user.email}</h4>
-                <h6>{user.activity}</h6>
-                <p>{user.name} is a good person. Be like {user.name}.</p>
-            </div>
-        ))}
+        <div className="card-container">
+            {users.map(user => (
+                <div className="card">
+                    <h3>{user.name}</h3>
+                    <h4>{user.email}</h4>
+                    <h6>{user.activity}</h6>
+                    <p>{user.favorite}</p>
+                </div>
+            ))}
+        </div>
 
 
         </div>
@@ -53,13 +95,15 @@ function OnboardForm ({ errors, touched, values, status, isSubmitting}) {
 }
 
 const FormikOnboardForm = withFormik({
-    mapPropsToValues({ name, email, password, activity, terms }) {
+    mapPropsToValues({ name, email, password, activity, favorite, terms }) {
         return {
             name: name || "",
             email: email || "",
             password: password || "",
+           activity: activity || "Choose an activity",
+           favorite: favorite || "My favorite thing about being outside is...",
             terms: terms || false,
-            activity: activity || "Choose one"
+ 
         };
     },
 
@@ -68,6 +112,7 @@ const FormikOnboardForm = withFormik({
         email: Yup.string().required("Come on. We gotta contact you!!!"),
         password: Yup.string().required("Keep it secret. Keep it safe"),
         activity: Yup.string().required("We know it's hard to choose just one!!!"),
+        favorite: Yup.string().required("Go for it!!! Tell us!!!"),
         terms: Yup.boolean().oneOf([true], "You gotta be nice. Check the thing"),
     }),
 
