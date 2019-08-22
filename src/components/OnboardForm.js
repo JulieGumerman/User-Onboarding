@@ -3,7 +3,7 @@ import { withFormik, Form, Field} from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
-function OnboardForm ({ errors, touched, values, status}) {
+function OnboardForm ({ errors, touched, values, status, isSubmitting}) {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -26,7 +26,8 @@ function OnboardForm ({ errors, touched, values, status}) {
                 <Field type="checkbox" name="terms" checked={values.terms} />
                 {touched.terms && errors.terms && (<p>{errors.terms}</p>)}
             </label>
-            <button type="submit">Submit here.</button>
+            <button type="submit" disabled={isSubmitting}>Submit here.</button>
+
 
         </Form>
         {users.map(user => (
@@ -58,15 +59,16 @@ const FormikOnboardForm = withFormik({
         name: Yup.string().required("You call that an answer????"),
         email: Yup.string().required("Come on. We gotta contact you!!!"),
         password: Yup.string().required("Keep it secret. Keep it safe"),
-        terms: Yup.string().required("You gotta be nice. Check the thing")
+        terms: Yup.boolean(true).required("You gotta be nice. Check the thing")
     }),
 
-    handleSubmit(values, { setStatus}) {
+    handleSubmit(values, { setStatus, resetForm} ) {
         axios
             .post("https://reqres.in/api/users/", values)
             .then(res => {
                 console.log(res.data);
                 setStatus(res.data);
+                resetForm();
             });
     }
 })(OnboardForm);
