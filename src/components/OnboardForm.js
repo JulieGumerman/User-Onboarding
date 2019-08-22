@@ -22,6 +22,13 @@ function OnboardForm ({ errors, touched, values, status, isSubmitting}) {
             {touched.email && errors.email && (<p>{errors.email}</p>)}
             <Field type="password" name="password" placeholder="password"/>
             {touched.password && errors.password &&(<p>{errors.password}</p>)}
+            <Field component="select" name="activity">
+                <option>Choose one</option>
+                <option>Snowboarding</option>
+                <option>Mountain Biking</option>
+                <option>Kayaking</option>
+                <option>Climbing</option>
+            </Field>
             <label> I agree to the terms of service.
                 <Field type="checkbox" name="terms" checked={values.terms} />
                 {touched.terms && errors.terms && (<p>{errors.terms}</p>)}
@@ -34,7 +41,7 @@ function OnboardForm ({ errors, touched, values, status, isSubmitting}) {
             <div>
                 <h3>{user.name}</h3>
                 <h4>{user.email}</h4>
-                <p>{user.password}</p>
+                <h6>{user.activity}</h6>
                 <p>{user.name} is a good person. Be like {user.name}.</p>
             </div>
         ))}
@@ -46,12 +53,13 @@ function OnboardForm ({ errors, touched, values, status, isSubmitting}) {
 }
 
 const FormikOnboardForm = withFormik({
-    mapPropsToValues({ name, email, password, terms }) {
+    mapPropsToValues({ name, email, password, activity, terms }) {
         return {
             name: name || "",
             email: email || "",
             password: password || "",
-            terms: terms || false
+            terms: terms || false,
+            activity: activity || "Choose one"
         };
     },
 
@@ -59,7 +67,8 @@ const FormikOnboardForm = withFormik({
         name: Yup.string().required("You call that an answer????"),
         email: Yup.string().required("Come on. We gotta contact you!!!"),
         password: Yup.string().required("Keep it secret. Keep it safe"),
-        terms: Yup.boolean().oneOf([true], "You gotta be nice. Check the thing")
+        activity: Yup.string().required("We know it's hard to choose just one!!!"),
+        terms: Yup.boolean().oneOf([true], "You gotta be nice. Check the thing"),
     }),
 
     handleSubmit(values, { setStatus, resetForm} ) {
