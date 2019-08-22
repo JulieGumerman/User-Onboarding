@@ -59,7 +59,7 @@ const FormikOnboardForm = withFormik({
         name: Yup.string().required("You call that an answer????"),
         email: Yup.string().required("Come on. We gotta contact you!!!"),
         password: Yup.string().required("Keep it secret. Keep it safe"),
-        terms: Yup.boolean(true).required("You gotta be nice. Check the thing")
+        terms: Yup.boolean().oneOf([true], "You gotta be nice. Check the thing")
     }),
 
     handleSubmit(values, { setStatus, resetForm} ) {
