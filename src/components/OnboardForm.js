@@ -13,8 +13,8 @@ function OnboardForm ({ errors, touched, values, status, isSubmitting}) {
     }, [status]);
 
     return (
+        <div className="just-the-background">
         <div className="form-container">
-        <h3>I am the form you have been looking for.</h3>
         <Form>
             <Field 
                 className="form-field" 
@@ -42,14 +42,24 @@ function OnboardForm ({ errors, touched, values, status, isSubmitting}) {
                 <p className="error">{errors.password}</p>
             )}
             <Field 
+                className="form-field"
+                type="text"
+                name="hometown"
+                placeholder="hometown"
+            />
+            {touched.hometown && errors.hometown && (
+                <p className="error">{errors.hometown}</p>
+            )} 
+            <Field 
                 className="form-field" 
                 component="select" 
                 name="activity">
                     <option>Choose an activity</option>
-                    <option>Snowboarding</option>
+                    <option>Hiking</option>
                     <option>Mountain Biking</option>
-                    <option>Kayaking</option>
+                    <option>Gallery-Hopping</option>
                     <option>Climbing</option>
+                    <option>Pub-Crawling</option>
             </Field>
             {touched.activity && errors.activity && (
                 <p className="error">{errors.activity}</p>
@@ -58,7 +68,7 @@ function OnboardForm ({ errors, touched, values, status, isSubmitting}) {
                 className="text-area" 
                 component="textarea" 
                 name="favorite" 
-                placeholder="My favorite thing about being outside is..."
+                placeholder="The best thing about Colorado Springs is..."
             />
             {touched.favorite && errors.favorite && (
                 <p className="error">{errors.favorite}</p>
@@ -77,12 +87,14 @@ function OnboardForm ({ errors, touched, values, status, isSubmitting}) {
 
 
         </Form>
+        </div>
         <div className="card-container">
             {users.map(user => (
                 <div className="card">
                     <h3>{user.name}</h3>
                     <h4>{user.email}</h4>
                     <h6>{user.activity}</h6>
+                    <p>{user.hometown}</p>
                     <p>{user.favorite}</p>
                 </div>
             ))}
@@ -95,13 +107,14 @@ function OnboardForm ({ errors, touched, values, status, isSubmitting}) {
 }
 
 const FormikOnboardForm = withFormik({
-    mapPropsToValues({ name, email, password, activity, favorite, terms }) {
+    mapPropsToValues({ name, email, password, hometown, activity, favorite, terms }) {
         return {
             name: name || "",
             email: email || "",
             password: password || "",
+            hometown: hometown || "",
            activity: activity || "Choose an activity",
-           favorite: favorite || "My favorite thing about being outside is...",
+           favorite: favorite || "The best thing about Colorado Springs is...",
             terms: terms || false,
  
         };
@@ -111,6 +124,7 @@ const FormikOnboardForm = withFormik({
         name: Yup.string().required("You call that an answer????"),
         email: Yup.string().required("Come on. We gotta contact you!!!"),
         password: Yup.string().required("Keep it secret. Keep it safe"),
+        hometown: Yup.string().required("Tell us!"),
         activity: Yup.string().required("We know it's hard to choose just one!!!"),
         favorite: Yup.string().required("Go for it!!! Tell us!!!"),
         terms: Yup.boolean().oneOf([true], "You gotta be nice. Check the thing"),
