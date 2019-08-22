@@ -4,6 +4,7 @@
 .header {
   width: 100%;
   padding: 20px;
+  color: #21464f;
 }
 
 .form-container {
@@ -12,7 +13,7 @@
   align-items: center;
   flex-direction: column;
   padding: 20px 0px 10px 0px;
-  background: url("https://www.colorado.com/sites/default/files/styles/1000x685/public/Pikes%20Peak%20and%20Garden%20of%20the%20Gods.jpg?itok=p58A1xh-");
+  background: #b46945;
   width: 100%;
   padding: 20px;
 }
@@ -35,16 +36,17 @@ Form {
 
 .error {
   font-size: 20px;
-  color: red;
+  color: black;
 }
 
 .card {
-  border: gray 1px solid;
+  border: #21464f 1px solid;
   width: 300px;
   background: #9e928f;
   border-radius: 10px;
   padding: 20px;
   margin: 20px;
+  color: #21464f;
 
 }
 
