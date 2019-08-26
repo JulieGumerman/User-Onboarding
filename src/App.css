@@ -1,5 +1,91 @@
 .App {
   text-align: center;
 }
+.header {
+  width: 100%;
+  padding: 20px;
+  color: #21464f;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px 0px 10px 0px;
+  background: #b46945;
+  width: 100%;
+  padding: 20px;
+}
+
+Form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
 
 
+
+}
+
+.form-field {
+  height: 30px;
+  margin-bottom: 15px;
+  border: 1px gray solid;
+  border-radius: 5px;
+}
+
+.error {
+  font-size: 20px;
+  color: black;
+}
+
+.card {
+  border: #21464f 1px solid;
+  width: 300px;
+  background: #9e928f;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+  color: #21464f;
+
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  margin: 0 auto;
+
+}
+
+.text-area {
+  height: 90px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid gray;
+}
+
+.terms {
+  margin-bottom: 15px;
+  color: black;
+}
+
+button {
+  width: 50%;
+  height: 30px;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+@media only screen and (max-width:768px) {
+  Form {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  Form {
+    width: 95%;
+  }
+}

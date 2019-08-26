@@ -5,7 +5,10 @@ import FormikOnboardForm from "./components/OnboardForm";
 function App() {
   return (
     <div className="App">
-      <h1>I am your app!!!</h1>
+      <div className="header">
+        <h1>Colorado Springs</h1>
+        <h2>The Good Life</h2>
+      </div>
       <FormikOnboardForm/>
     </div>
   );
